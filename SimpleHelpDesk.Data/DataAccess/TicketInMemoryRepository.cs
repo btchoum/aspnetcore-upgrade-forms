@@ -32,10 +32,5 @@ namespace SimpleHelpDesk.Data.DataAccess
         {
             Tickets[ticket.Id] = ticket;
         }
-
-        public void Remove(long id)
-        {
-            Tickets.Remove(id);
-        }
     }
 }

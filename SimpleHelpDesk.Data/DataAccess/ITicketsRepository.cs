@@ -9,6 +9,5 @@ namespace SimpleHelpDesk.Data.DataAccess
         Ticket GetById(long id);
         long Add(Ticket ticket);
         void Update(Ticket ticket);
-        void Remove(long id);
     }
 }
