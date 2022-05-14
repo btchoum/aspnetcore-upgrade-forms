@@ -11,11 +11,11 @@ namespace SimpleHelpDesk.Web.Controllers
     {
         private readonly ITicketsRepository _repository;
 
-        public TicketsController(): this(new InMemoryTicketsRepository())
+        public TicketsController() : this(new InMemoryTicketsRepository())
         {
-            
+
         }
-        
+
         public TicketsController(ITicketsRepository repository)
         {
             _repository = repository;
@@ -39,18 +39,24 @@ namespace SimpleHelpDesk.Web.Controllers
         public ActionResult Create(TicketCreateViewModel model)
         {
             if (!ModelState.IsValid) return View();
-            
+
             try
             {
+                var userName = User.Identity?.Name;
                 var ticket = new Ticket
                 {
                     Summary = model.Summary,
                     Description = model.Description,
                     TicketStatus = TicketStatus.New,
-                    SubmitterId = User.Identity?.Name,
+                    SubmitterId = userName,
                     CreatedAt = DateTime.UtcNow,
                     UpdatedAt = DateTime.UtcNow,
-                    Comments = new List<Comment>()
+                    Comments = new List<Comment>
+                    {
+                        new Comment{ Content = "First comment", CommenterId = userName},
+                        new Comment{ Content = "Second comment", CommenterId = userName},
+                        new Comment{ Content = "Another comment", CommenterId = userName}
+                    }
                 };
 
                 _repository.Add(ticket);
@@ -69,7 +75,7 @@ namespace SimpleHelpDesk.Web.Controllers
             var ticket = _repository.GetById(id);
 
             if (ticket == null) return HttpNotFound();
-            
+
             return View(ticket);
         }
     }
@@ -78,7 +84,7 @@ namespace SimpleHelpDesk.Web.Controllers
     {
         [Required]
         public string Summary { get; set; }
-        
+
         [DataType(DataType.MultilineText)]
         public string Description { get; set; }
     }

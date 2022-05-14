@@ -4,6 +4,17 @@
     ViewBag.Title = "Details";
 }
 
+@section styles{
+    <style>
+        .comment {
+            margin: 5px;
+            border: 1px solid burlywood;
+            padding: 5px;
+        }
+    </style>
+}
+
+
 <h2>Details</h2>
 
 <div>
@@ -51,6 +62,15 @@
         </dd>
 
     </dl>
+    
+    <div id="comments">
+        @foreach (var comment in Model.Comments)
+        {
+            <div class="comment">
+                @comment.Content
+            </div>
+        }
+    </div>
 </div>
 <p>
     @Html.ActionLink("Back to List", "Index")
