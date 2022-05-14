@@ -13,7 +13,6 @@ namespace SimpleHelpDesk.Web.Controllers
 
         public TicketsController() : this(new InMemoryTicketsRepository())
         {
-
         }
 
         public TicketsController(ITicketsRepository repository)
@@ -101,7 +100,6 @@ namespace SimpleHelpDesk.Web.Controllers
             return PartialView("_Comment", newComment);
         }
     }
-
 
     public class AddCommentModel
     {

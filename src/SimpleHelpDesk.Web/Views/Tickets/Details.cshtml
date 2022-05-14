@@ -63,7 +63,7 @@
 
     </dl>
 
-    @using (Ajax.BeginForm("AddComment", "", new AjaxOptions()
+    @using (Ajax.BeginForm("AddComment", "Tickets", new AjaxOptions
     {
         InsertionMode = InsertionMode.InsertBefore,
         UpdateTargetId = "comments",
@@ -77,7 +77,6 @@
             <button class="btn btn-default">Add Comment</button>
         </div>
     }
-
 
     <div id="comments">
         @foreach (var comment in Model.Comments)
