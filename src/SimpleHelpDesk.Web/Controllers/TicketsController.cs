@@ -78,6 +78,35 @@ namespace SimpleHelpDesk.Web.Controllers
 
             return View(ticket);
         }
+
+        //TODO: change routing to POST tickets/{id:long}/comments
+        // POST Tickets/AddComment
+        [HttpPost]
+        public ActionResult AddComment(AddCommentModel comment)
+        {
+            var ticket = _repository.GetById(comment.TicketId);
+
+            if (ticket == null) return HttpNotFound();
+
+            var newComment = new Comment
+            {
+                Content = comment.Content,
+                CommenterId = User.Identity?.Name,
+                TicketId = comment.TicketId
+            };
+            ticket.Comments.Add(newComment);
+            
+            _repository.Update(ticket);
+
+            return PartialView("_Comment", newComment);
+        }
+    }
+
+
+    public class AddCommentModel
+    {
+        public long TicketId { get; set; }
+        public string Content { get; set; }
     }
 
     public class TicketCreateViewModel

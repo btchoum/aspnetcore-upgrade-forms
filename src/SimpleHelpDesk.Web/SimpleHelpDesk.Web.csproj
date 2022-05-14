@@ -169,6 +169,7 @@
     <Content Include="Views\Tickets\Create.cshtml" />
     <Content Include="Views\Tickets\Index.cshtml" />
     <Content Include="Views\Tickets\Details.cshtml" />
+    <Content Include="Views\Tickets\_Comment.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
