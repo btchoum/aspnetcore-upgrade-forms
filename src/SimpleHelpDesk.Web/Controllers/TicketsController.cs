@@ -41,20 +41,19 @@ namespace SimpleHelpDesk.Web.Controllers
 
             try
             {
-                var userName = User.Identity?.Name;
                 var ticket = new Ticket
                 {
                     Summary = model.Summary,
                     Description = model.Description,
                     TicketStatus = TicketStatus.New,
-                    SubmitterId = userName,
+                    SubmitterId = GetUserName(),
                     CreatedAt = DateTime.UtcNow,
                     UpdatedAt = DateTime.UtcNow,
                     Comments = new List<Comment>
                     {
-                        new Comment{ Content = "First comment", CommenterId = userName},
-                        new Comment{ Content = "Second comment", CommenterId = userName},
-                        new Comment{ Content = "Another comment", CommenterId = userName}
+                        new Comment{ Content = "First comment", CommenterId = GetUserName(), CreatedAt = DateTime.UtcNow},
+                        new Comment{ Content = "Second comment", CommenterId = GetUserName(), CreatedAt = DateTime.UtcNow},
+                        new Comment{ Content = "Another comment", CommenterId = GetUserName(), CreatedAt = DateTime.UtcNow}
                     }
                 };
 
@@ -66,6 +65,11 @@ namespace SimpleHelpDesk.Web.Controllers
             {
                 return View();
             }
+        }
+
+        private string GetUserName()
+        {
+            return User.Identity?.Name;
         }
 
         // GET: Tickets/Create
@@ -90,8 +94,9 @@ namespace SimpleHelpDesk.Web.Controllers
             var newComment = new Comment
             {
                 Content = comment.Content,
-                CommenterId = User.Identity?.Name,
-                TicketId = comment.TicketId
+                CommenterId = GetUserName(),
+                TicketId = comment.TicketId,
+                CreatedAt = DateTime.UtcNow
             };
             ticket.Comments.Add(newComment);
             

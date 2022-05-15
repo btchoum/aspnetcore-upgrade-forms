@@ -18,6 +18,7 @@ namespace SimpleHelpDesk.Data.Entities
     public class Comment
     {
         public long Id { get; set; }
+        public DateTime CreatedAt { get; set; }
         public long TicketId { get; set; }
         public string CommenterId { get; set; }
         public string Content { get; set; }

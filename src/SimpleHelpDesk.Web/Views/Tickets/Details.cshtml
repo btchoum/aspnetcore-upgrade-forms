@@ -8,17 +8,14 @@
     <style>
         .comment {
             margin: 5px;
-            border: 1px solid burlywood;
             padding: 5px;
         }
     </style>
 }
 
-
-<h2>Details</h2>
+<h2>Ticket Details</h2>
 
 <div>
-    <h4>Ticket</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -38,22 +35,6 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.CreatedAt)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CreatedAt)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.UpdatedAt)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.UpdatedAt)
-        </dd>
-
-        <dt>
             @Html.DisplayNameFor(model => model.SubmitterId)
         </dt>
 
@@ -63,6 +44,7 @@
 
     </dl>
 
+    <hr />
     @using (Ajax.BeginForm("AddComment", "Tickets", new AjaxOptions
     {
         InsertionMode = InsertionMode.InsertBefore,
@@ -74,12 +56,13 @@
         <div class="form-group">
             <input type="hidden" value="@Model.Id" name="ticketId" />
             <textarea id="newComment" name="content" class="form-control" placeholder="Type your comment ..."></textarea>
+            <br />
             <button class="btn btn-default">Add Comment</button>
         </div>
     }
-
-    <div id="comments">
-        @foreach (var comment in Model.Comments)
+    <hr />
+    <div class="row" id="comments">
+        @foreach (var comment in Model.Comments.OrderByDescending(c => c.CreatedAt))
         {
             @Html.Partial("_Comment", comment)
         }
