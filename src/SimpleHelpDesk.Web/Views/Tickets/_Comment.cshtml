@@ -1,0 +1,6 @@
+﻿@model SimpleHelpDesk.Data.Entities.Comment
+
+<div class="comment row">
+    <div class="col-md-4">@Model.CommenterId at @Model.CreatedAt.ToString("G")</div>
+    <div class="col-md-8">@Model.Content</div>
+</div>
